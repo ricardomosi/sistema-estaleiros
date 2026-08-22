@@ -1,0 +1,13 @@
+{
+  "name": "sistema-estaleiros",
+  "version": "1.0.0",
+  "description": "Sistema de Catalogacao de Tubos em Estaleiros - JPatricio Metais",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y vite --host 0.0.0.0 --port 3000",
+    "start": "npx -y vite --host 0.0.0.0 --port 3000",
+    "serve": "npx -y serve . -l 3000"
+  },
+  "author": "JPatricio Metais",
+  "license": "ISC"
+}

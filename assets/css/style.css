@@ -1,0 +1,80 @@
+/* ==============================================================================
+   ESTILOS GERAIS - JPATRÍCIO METAIS (SISTEMA ESTALEIROS)
+   ============================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #16263F;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: Archivo, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #16263F;
+}
+
+a {
+  color: #E4622A;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #FF8B57;
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+}
+
+/* Animação de Skeleton Loading */
+@keyframes skel {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+
+x-dc {
+  display: block;
+}
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EEF2F7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7C90A8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E4622A;
+}
+
+/* Regras Responsivas Nativas (Celular e Tablet) */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  input, select, button, textarea {
+    font-size: 16px !important; /* Impede zoom automático no iOS Safari */
+  }
+
+  .container-responsivo {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+

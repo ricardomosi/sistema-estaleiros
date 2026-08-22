@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Local Environment Variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Supabase temporary files
+supabase/.temp/
+
+# Build & Deploy
+dist/
+build/
+.output/
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estaleiros — JPatrício Metais</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/archivo@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/archivo@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/archivo@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/archivo@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/archivo@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/archivo@5/900.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/barlow-condensed@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/barlow-condensed@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/barlow-condensed@5/700.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height: 100vh; background: #EEF2F7; font-family: Archivo, sans-serif; display: flex; flex-direction: column;">
+<div style="background: #0C1729; border-bottom: 1px solid #24384F; padding: 10px 16px;">
+<div style="max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<img data-logo="1" alt="JPatrício Metais" style="height: 32px; width: auto; display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.16em; color: #E4622A; background: #38200F; padding: 4px 9px; border-radius: 5px;">ESTALEIROS</span>
+<div style="display: flex; gap: 6px;">
+<sc-for list="{{ telas }}" as="t" hint-placeholder-count="3">
+<button type="button" sc-camel-on-click="{{ t.ir }}" style="{{ t.style }}">{{ t.nome }}</button>
+</sc-for>
+</div>
+<span style="font-size: 11px; font-weight: 500; color: #7C90A8; flex: 1; min-width: 200px;">JPatrício Metais — Sistema de Estoque e Catalogação</span>
+<sc-if value="{{ logado }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 10px;">
+<span style="font-size: 11px; font-weight: 700; color: #A9BACC; white-space: nowrap;">{{ usuarioLabel }}</span>
+<button type="button" sc-camel-on-click="{{ sair }}" style="padding: 5px 11px; font-size: 11px; font-weight: 700; color: #7C90A8; background: transparent; border: 1px solid #24384F; border-radius: 6px; cursor: pointer;" style-hover="border-color: #E4622A; color: #FFFFFF;">Sair</button>
+</div>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{ mostrarHome }}" hint-placeholder-val="{{ true }}">
+<div style="flex: 1; max-width: 1180px; width: 100%; margin: 0 auto; padding: 24px 16px 60px;">
+<div style="background: #16263F; border-radius: 16px; padding: 28px 24px; color: #FFFFFF; box-shadow: 0 8px 32px rgba(12, 23, 41, 0.15); margin-bottom: 24px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+<div>
+<img data-logo="1" alt="JPatrício Metais" style="height: 44px; width: auto; display: block;">
+<div style="font-size: 22px; font-weight: 900; color: #FFFFFF; margin-top: 14px;">Catalogação de Tubos &amp; Controle de Estoque</div>
+<div style="font-size: 14px; font-weight: 500; color: #9AACC0; margin-top: 6px;">Selecione a unidade do estaleiro abaixo para visualizar o estoque ou acesse os painéis da equipe.</div>
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+<button type="button" sc-camel-on-click="{{ irParaVendedor }}" style="padding: 12px 18px; font-size: 13px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 10px; cursor: pointer;" style-hover="background: #FF7438;">Painel do Vendedor</button>
+<button type="button" sc-camel-on-click="{{ irParaAdmin }}" style="padding: 12px 18px; font-size: 13px; font-weight: 800; color: #FFFFFF; background: #24384F; border: 1px solid #3A5370; border-radius: 10px; cursor: pointer;" style-hover="background: #2D4668;">Área Administrativa</button>
+</div>
+</div>
+</div>
+<div style="font-size: 13px; font-weight: 800; letter-spacing: 0.14em; color: #16263F; margin-bottom: 14px;">UNIDADES DOS ESTALEIROS</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;">
+<sc-for list="{{ homeEstaleiros }}" as="e" hint-placeholder-count="7">
+<div sc-camel-on-click="{{ e.acessar }}" style="background: #FFFFFF; border: 1px solid #D3DCE6; border-radius: 14px; padding: 20px; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;" style-hover="transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12, 23, 41, 0.12); border-color: #E4622A;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px;">
+<div style="width: 52px; height: 52px; background: #16263F; color: #FFFFFF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 700;">{{ e.numero }}</div>
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #E4622A; background: #FCEFD9; padding: 4px 9px; border-radius: 5px;">ESTALEIRO</span>
+</div>
+<div style="font-size: 16px; font-weight: 800; color: #16263F;">Estaleiro {{ e.numero }}</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 4px;">{{ e.localizacao }}</div>
+<div style="margin-top: 16px; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: #E4622A;">
+<span>Acessar estoque da unidade</span>
+<span>→</span>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ mostrarLogin }}" hint-placeholder-val="{{ true }}">
+<div style="flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px 60px;">
+<div style="width: 100%; max-width: 400px; margin: 0 auto;">
+<div style="width: 100%; max-width: 400px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 40px rgba(12, 23, 41, 0.18);">
+<div style="background: #16263F; padding: 24px 22px;">
+<img data-logo="1" alt="JPatrício Metais" style="height: 42px; width: auto; display: block;">
+<div style="margin-top: 20px;">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.22em; color: #E4622A;">ESTALEIRO</div>
+<div style="font-family: 'Barlow Condensed', sans-serif; font-size: 76px; font-weight: 700; line-height: 0.85; color: #FFFFFF; font-variant-numeric: tabular-nums;">{{ estNum }}</div>
+</div>
+</div>
+<form sc-camel-on-submit="{{ onEntrar }}" style="padding: 22px;">
+<div style="font-size: 16px; font-weight: 900; color: #16263F;">Acesso restrito à equipe</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 6px; line-height: 1.45; text-wrap: pretty;">Entre com sua conta JPatrício para ver os materiais deste estaleiro.</div>
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 18px;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">E-MAIL</span>
+<input type="email" value="{{ email }}" sc-camel-on-input="{{ onEmail }}" autocomplete="username" placeholder="voce@jpatricio.com.br" style="width: 100%; margin-top: 5px; padding: 13px 14px; font-size: 16px; font-weight: 600; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 10px; outline: none;" style-focus="border-color: #E4622A; background: #FFFFFF;">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">SENHA</span>
+<input type="password" value="{{ senha }}" sc-camel-on-input="{{ onSenha }}" autocomplete="current-password" style="width: 100%; margin-top: 5px; padding: 13px 14px; font-size: 16px; font-weight: 600; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 10px; outline: none;" style-focus="border-color: #E4622A; background: #FFFFFF;">
+</label>
+</div>
+<sc-if value="{{ temLoginErro }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 14px; background: #FDECEA; border-left: 3px solid #C4321F; padding: 11px 13px; font-size: 13px; font-weight: 700; color: #8E2416; line-height: 1.4;">{{ loginErro }}</div>
+</sc-if>
+<button type="submit" disabled="{{ entrando }}" style="{{ botaoEntrarStyle }}">{{ botaoEntrarLabel }}</button>
+<div style="margin-top: 14px; font-size: 11px; font-weight: 500; color: #7E93AE; line-height: 1.45; text-wrap: pretty;">Suas credenciais vão apenas para o servidor da JPatrício. Nenhum dado do estoque aparece antes da entrada.</div>
+<div style="margin-top: 14px; background: #FFF4E5; border: 1px solid #FFE0B2; border-radius: 9px; padding: 11px 13px; font-size: 11px; font-weight: 600; color: #B76E00; line-height: 1.45;">
+  💡 <strong>Credenciais de Teste Local:</strong><br>
+  • <strong>Admin:</strong> <code>admin@jpatricio.com.br</code> | Senha: <code>admin</code><br>
+  • <strong>Vendedor:</strong> <code>vendedor@jpatricio.com.br</code> | Senha: <code>vendedor</code>
+  <div style="display: flex; gap: 8px; margin-top: 10px;">
+    <button type="button" sc-camel-on-click="{{ entrarAdminTeste }}" style="flex: 1; padding: 8px 10px; font-size: 11px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 6px; cursor: pointer;" style-hover="background: #FF7438;">⚡ Entrar como Admin</button>
+    <button type="button" sc-camel-on-click="{{ entrarVendedorTeste }}" style="flex: 1; padding: 8px 10px; font-size: 11px; font-weight: 800; color: #16263F; background: #FFFFFF; border: 1px solid #D3DCE6; border-radius: 6px; cursor: pointer;" style-hover="background: #F6F8FB;">⚡ Entrar como Vendedor</button>
+  </div>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ mostrarQR }}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; display: flex; justify-content: center; padding: 20px 16px 40px;">
+<div style="width: 100%; max-width: 420px; margin: 0 auto;">
+<div style="width: 100%; max-width: 420px;">
+<div style="display: flex; align-items: center; gap: 9px; margin-bottom: 12px; background: #FFFFFF; border-radius: 9px; padding: 8px 12px;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #6E86A2;">SIMULAR LEITURA</span>
+<sc-raw-select value="{{ estNumSel }}" sc-camel-on-change="{{ onTrocarEstaleiro }}" style="flex: 1; padding: 7px 9px; font-size: 13px; font-weight: 700; color: #16263F; background: #F6F8FB; border: 1px solid #D3DCE6; border-radius: 7px; outline: none; cursor: pointer;">
+<sc-for list="{{ opcoesEstaleiro }}" as="o" hint-placeholder-count="3">
+<option value="{{ o.valor }}">{{ o.rotulo }}</option>
+</sc-for>
+</sc-raw-select>
+</div>
+<div style="background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(12, 23, 41, 0.12);">
+<div style="background: #16263F; padding: 18px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 14px;">
+<img data-logo="1" alt="JPatrício Metais" style="height: 38px; width: auto; display: block;">
+<div style="text-align: right;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.2em; color: #E4622A;">ESTALEIRO</div>
+<div style="font-family: 'Barlow Condensed', sans-serif; font-size: 44px; font-weight: 700; line-height: 0.9; color: #FFFFFF; font-variant-numeric: tabular-nums;">{{ estNum }}</div>
+</div>
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #8FA3BC; margin-top: 9px;">{{ subtitulo }}</div>
+</div>
+<sc-if value="{{ isLoading }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 18px 16px 24px;">
+<div style="height: 58px; border-radius: 10px; background: #DFE6EE; animation: skel 1.1s ease-in-out infinite;"></div>
+<div style="height: 72px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite 0.12s;"></div>
+<div style="height: 72px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite 0.24s;"></div>
+<div style="text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #7E93AE; padding-top: 4px;">CARREGANDO MATERIAIS…</div>
+</div>
+</sc-if>
+<sc-if value="{{ isErro }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 36px 24px; text-align: center;">
+<div style="font-size: 18px; font-weight: 900; color: #16263F;">{{ erroTitulo }}</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 8px; line-height: 1.45; text-wrap: pretty;">{{ erroTexto }}</div>
+<button type="button" sc-camel-on-click="{{ recarregar }}" style="margin-top: 18px; padding: 12px 20px; font-size: 15px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 10px; cursor: pointer;">Tentar de novo</button>
+</div>
+</sc-if>
+<sc-if value="{{ isVazio }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 36px 24px; text-align: center;">
+<div style="font-size: 18px; font-weight: 900; color: #16263F;">Nenhum material neste estaleiro</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 8px; line-height: 1.45;">O estaleiro está cadastrado, mas não há lotes registrados.</div>
+</div>
+</sc-if>
+<sc-if value="{{ temDados }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #24384F;">
+<div style="background: #1D3252; padding: 12px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.14em; color: #8FA3BC;">TOTAL KG</div>
+<div style="font-size: 19px; font-weight: 800; color: #FFFFFF; margin-top: 3px; font-variant-numeric: tabular-nums;">{{ totalKg }}</div>
+</div>
+<div style="background: #1D3252; padding: 12px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.14em; color: #8FA3BC;">TOTAL MT</div>
+<div style="font-size: 19px; font-weight: 800; color: #FFFFFF; margin-top: 3px; font-variant-numeric: tabular-nums;">{{ totalMt }}</div>
+</div>
+<div style="background: #1D3252; padding: 12px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.14em; color: #8FA3BC;">PEÇAS</div>
+<div style="font-size: 19px; font-weight: 800; color: #FFFFFF; margin-top: 3px; font-variant-numeric: tabular-nums;">{{ totalPecas }}</div>
+</div>
+</div>
+<div style="padding: 14px 14px 6px;">
+<input type="search" value="{{ busca }}" sc-camel-on-input="{{ onBusca }}" placeholder="Buscar código ou descrição…" style="width: 100%; padding: 12px 14px; font-size: 16px; font-weight: 600; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 10px; outline: none;" style-focus="border-color: #E4622A; background: #FFFFFF;">
+<sc-if value="{{ buscaAtiva }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 12px; font-weight: 700; color: #6E86A2; padding: 8px 2px 0;">{{ resultadoLabel }}</div>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 9px; padding: 8px 14px 20px;">
+<sc-for list="{{ itens }}" as="t" hint-placeholder-count="3">
+<div style="background: #FFFFFF; border: 1px solid #E1E8F0; border-radius: 12px; overflow: hidden;">
+<div sc-camel-on-click="{{ t.toggle }}" style="display: flex; align-items: center; gap: 12px; padding: 12px 13px; cursor: pointer;">
+<div style="width: 44px; flex: none; display: flex; align-items: center; justify-content: center;">
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; color: #E4622A; line-height: 1; font-variant-numeric: tabular-nums;">{{ t.numPintado }}</span>
+</div>
+<div style="flex: 1; min-width: 0;">
+<div style="{{ t.tituloStyle }}">{{ t.titulo }}</div>
+<div style="display: flex; align-items: center; gap: 7px; margin-top: 4px; flex-wrap: wrap;">
+<span style="{{ t.codigoStyle }}">{{ t.codigoLabel }}</span>
+<sc-if value="{{ t.pendente }}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 9px; font-weight: 800; letter-spacing: 0.09em; color: #8A4B0B; background: #FCEFD9; border-radius: 4px; padding: 3px 6px;">{{ t.pendLabel }}</span>
+</sc-if>
+<sc-if value="{{ t.precoInconsistente }}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 9px; font-weight: 800; letter-spacing: 0.09em; color: #8A4B0B; background: #FCEFD9; border-radius: 4px; padding: 3px 6px;">PREÇOS NÃO CONFEREM</span>
+</sc-if>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex: none;">
+<span style="display: inline-block; padding: 3px 8px; border-radius: 5px; background: #16263F; color: #FFFFFF; font-size: 10px; font-weight: 800; letter-spacing: 0.1em;">{{ t.unidade }}</span>
+<span style="{{ t.chevronStyle }}">▾</span>
+</div>
+</div>
+<sc-if value="{{ t.aberto }}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px solid #E4EAF1; padding: 13px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px;">
+<div style="background: #F1F4F8; border-left: 3px solid #16263F; padding: 8px 9px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">PEÇAS</div>
+<div style="font-size: 16px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.pecas }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #16263F; padding: 8px 9px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">METROS</div>
+<div style="font-size: 16px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.metros }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #16263F; padding: 8px 9px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">QUILOS</div>
+<div style="font-size: 16px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.quilos }}</div>
+</div>
+</div>
+<div>
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 7px;">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #7E93AE;">PREÇO</div>
+<div style="font-size: 10px; font-weight: 700; color: #9AACC0;">{{ t.precoData }}</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px;">
+<div style="background: #F1F4F8; border-left: 3px solid #E4622A; padding: 8px 9px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">POR KG</div>
+<div style="font-size: 15px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.precoKg }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #E4622A; padding: 8px 9px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">POR MT</div>
+<div style="font-size: 15px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.precoMt }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #E4622A; padding: 8px 9px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">POR UN</div>
+<div style="font-size: 15px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.precoUn }}</div>
+</div>
+</div>
+<sc-if value="{{ t.precoInconsistente }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 8px; background: #FCEFD9; border-left: 3px solid #C97A16; padding: 9px 11px; font-size: 12px; font-weight: 600; color: #7A4A0C; line-height: 1.4; text-wrap: pretty;">{{ t.precoAviso }}</div>
+</sc-if>
+</div>
+<div>
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 7px;">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #7E93AE;">PEÇAS POR TAMANHO</div>
+<div style="font-size: 11px; font-weight: 700; color: #7E93AE; font-variant-numeric: tabular-nums;">{{ t.lotesResumo }}</div>
+</div>
+<sc-if value="{{ t.lotesCarregando }}" hint-placeholder-val="{{ false }}">
+<div style="height: 54px; border-radius: 8px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite;"></div>
+</sc-if>
+<sc-if value="{{ t.lotesErro }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 10px; background: #F1F4F8; border-radius: 8px; padding: 11px;">
+<span style="flex: 1; font-size: 13px; font-weight: 600; color: #4A6280;">Não foi possível carregar as peças.</span>
+<button type="button" sc-camel-on-click="{{ t.recarregarLotes }}" style="padding: 6px 11px; font-size: 12px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 7px; cursor: pointer;">Tentar</button>
+</div>
+</sc-if>
+<sc-if value="{{ t.lotesOk }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="display: grid; grid-template-columns: 1fr 48px 1fr 1fr; gap: 7px; background: #16263F; color: #FFFFFF; padding: 7px 10px; border-radius: 6px 6px 0 0; font-size: 9px; font-weight: 800; letter-spacing: 0.1em;">
+<div>TAMANHO</div>
+<div style="text-align: right;">QTD</div>
+<div style="text-align: right;">KG/PEÇA</div>
+<div style="text-align: right;">KG TOTAL</div>
+</div>
+<sc-for list="{{ t.lotes }}" as="l" hint-placeholder-count="3">
+<div style="{{ l.rowStyle }}">
+<div style="font-size: 14px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ l.tamanho }}</div>
+<div style="font-size: 14px; font-weight: 700; color: #2C4462; text-align: right; font-variant-numeric: tabular-nums;">{{ l.qtd }}</div>
+<div style="font-size: 14px; font-weight: 600; color: #4A6280; text-align: right; font-variant-numeric: tabular-nums;">{{ l.kgPeca }}</div>
+<div style="font-size: 14px; font-weight: 800; color: #16263F; text-align: right; font-variant-numeric: tabular-nums;">{{ l.kgTotal }}</div>
+</div>
+</sc-for>
+<sc-for list="{{ t.observacoes }}" as="o" hint-placeholder-count="0">
+<div style="font-size: 12px; font-weight: 600; color: #4A6280; padding: 7px 10px; background: #F7F9FB; line-height: 1.4;">{{ o.texto }}</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ t.pendente }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FCEFD9; border-left: 3px solid #C97A16; padding: 9px 11px; font-size: 12px; font-weight: 600; color: #7A4A0C; line-height: 1.4; text-wrap: pretty;">{{ t.pendTexto }}</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+<sc-if value="{{ semResultado }}" hint-placeholder-val="{{ false }}">
+<div style="text-align: center; padding: 26px 14px;">
+<div style="font-size: 15px; font-weight: 800; color: #16263F;">Nada encontrado</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 6px;">Nenhum material com esse termo neste estaleiro.</div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+<div style="padding: 14px 18px 18px; background: #16263F; text-align: center;">
+<div style="font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: #5C7594;">CONSULTA DE ESTOQUE · JPATRÍCIO METAIS</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ mostrarLoginGeral }}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 24px;">
+<div style="max-width: 420px; text-align: center;">
+<div style="font-size: 20px; font-weight: 900; color: #16263F;">Entre para continuar</div>
+<div style="font-size: 14px; font-weight: 500; color: #4A6280; margin-top: 10px; line-height: 1.5; text-wrap: pretty;">Esta visão é restrita à equipe. Use a aba “Leitura do QR” para entrar com sua conta.</div>
+<button type="button" sc-camel-on-click="{{ irParaLogin }}" style="margin-top: 18px; padding: 12px 22px; font-size: 15px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 10px; cursor: pointer;">Ir para a entrada</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ mostrarPainel }}" hint-placeholder-val="{{ false }}">
+<div style="{{ painelMolduraStyle }}">
+<sc-if value="{{ painelCarregando }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="height: 96px; border-radius: 14px; background: #DFE6EE; animation: skel 1.1s ease-in-out infinite;"></div>
+<div style="height: 62px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite 0.1s;"></div>
+<div style="height: 62px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite 0.2s;"></div>
+<div style="height: 62px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite 0.3s;"></div>
+<div style="text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #7E93AE; padding-top: 6px;">LENDO O ESTOQUE…</div>
+</div>
+</sc-if>
+<sc-if value="{{ painelErro }}" hint-placeholder-val="{{ false }}">
+<div style="max-width: 520px; margin: 40px auto; text-align: center;">
+<div style="font-size: 19px; font-weight: 900; color: #16263F;">{{ painelErroTitulo }}</div>
+<div style="font-size: 14px; font-weight: 500; color: #4A6280; margin-top: 8px; line-height: 1.45;">{{ painelErroTexto }}</div>
+<button type="button" sc-camel-on-click="{{ recarregarPainel }}" style="margin-top: 18px; padding: 12px 22px; font-size: 15px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 10px; cursor: pointer;">Tentar de novo</button>
+</div>
+</sc-if>
+<sc-if value="{{ painelOk }}" hint-placeholder-val="{{ false }}">
+<div>
+<sc-if value="{{ painelMostrarTotais }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FFFFFF; border-radius: 14px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.12); overflow: hidden; margin-bottom: 18px;">
+<div style="padding: 13px 20px; background: #1D3252; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+<div style="font-size: 12px; font-weight: 800; letter-spacing: 0.16em; color: #FFFFFF;">TOTAIS GERAIS DO PÁTIO</div>
+<div style="font-size: 11px; font-weight: 700; color: #8FA3BC;">{{ painelSubtitulo }}</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+<sc-for list="{{ painelMetricas }}" as="m" hint-placeholder-count="6">
+<div style="{{ m.boxStyle }}">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #7E93AE;">{{ m.rotulo }}</div>
+<div style="{{ m.valorStyle }}">{{ m.valor }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<div style="{{ painelControlesStyle }}">
+<input type="search" value="{{ painelBusca }}" sc-camel-on-input="{{ onPainelBusca }}" placeholder="Buscar estaleiro, código ou descrição…" style="{{ painelBuscaStyle }}" style-focus="border-color: #E4622A;">
+<sc-if value="{{ painelMostrarTotais }}" hint-placeholder-val="{{ false }}">
+<label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #4A6280; cursor: pointer; user-select: none;">
+<input type="checkbox" checked="{{ painelSoPendentes }}" sc-camel-on-change="{{ onPainelSoPendentes }}" style="width: 17px; height: 17px; accent-color: #E4622A; cursor: pointer;">
+Só itens com pendência
+</label>
+</sc-if>
+<div style="{{ painelLinhaFiltroStyle }}">
+<button type="button" sc-camel-on-click="{{ painelAlternarTudo }}" style="padding: 10px 15px; font-size: 13px; font-weight: 700; color: #4A6280; background: #FFFFFF; border: 1px solid #D3DCE6; border-radius: 9px; cursor: pointer; white-space: nowrap;" style-hover="border-color: #E4622A; color: #16263F;">{{ painelAlternarLabel }}</button>
+<div style="font-size: 13px; font-weight: 700; color: #6E86A2; font-variant-numeric: tabular-nums; text-align: right;">{{ painelResultado }}</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{ painelEstaleiros }}" as="e" hint-placeholder-count="5">
+<div style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden;">
+<div style="{{ e.cabecalhoStyle }}">
+<div sc-camel-on-click="{{ e.toggle }}" style="display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; cursor: pointer;">
+<div style="width: 50px; height: 50px; flex: none; background: #16263F; color: #FFFFFF; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ e.numero }}</div>
+<div style="flex: 1; min-width: 0;">
+<div style="font-size: 15px; font-weight: 800; color: #16263F;">{{ e.titulo }}</div>
+<div style="font-size: 12px; font-weight: 600; color: #7E93AE; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ e.resumoItens }}</div>
+</div>
+</div>
+<div style="{{ e.acoesStyle }}">
+<sc-if value="{{ vistaCelular }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 8px; flex: 1; min-width: 0;">
+<div style="flex: 1; background: #F1F4F8; border-left: 3px solid #16263F; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">PEÇAS</div>
+<div style="font-size: 15px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ e.pecas }}</div>
+</div>
+<div style="flex: 1; background: #F1F4F8; border-left: 3px solid #16263F; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">METROS</div>
+<div style="font-size: 15px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ e.metros }}</div>
+</div>
+<div style="flex: 1; background: #F1F4F8; border-left: 3px solid #16263F; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">QUILOS</div>
+<div style="font-size: 15px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ e.quilos }}</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ vistaDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="text-align: right; min-width: 70px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: #7E93AE;">PEÇAS</div>
+<div style="font-size: 17px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ e.pecas }}</div>
+</div>
+<div style="text-align: right; min-width: 86px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: #7E93AE;">METROS</div>
+<div style="font-size: 17px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ e.metros }}</div>
+</div>
+<div style="text-align: right; min-width: 96px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: #7E93AE;">QUILOS</div>
+<div style="{{ e.kgStyle }}">{{ e.quilos }}</div>
+</div>
+</sc-if>
+<sc-if value="{{ e.temPendencia }}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A4B0B; background: #FCEFD9; border-radius: 5px; padding: 5px 9px; flex: none; white-space: nowrap;">{{ e.pendLabel }}</span>
+</sc-if>
+<button type="button" sc-camel-on-click="{{ e.verComoQR }}" style="{{ e.btnQRStyle }}">Ver como no QR</button>
+<span sc-camel-on-click="{{ e.toggle }}" style="{{ e.chevronStyle }}">▾</span>
+</div>
+</div>
+<sc-if value="{{ e.abertoCelular }}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px solid #E4EAF1; display: flex; flex-direction: column; gap: 8px; padding: 10px 12px 14px;">
+<sc-for list="{{ e.itens }}" as="t" hint-placeholder-count="3">
+<div style="border: 1px solid #E1E8F0; border-radius: 10px; padding: 10px 11px;">
+<div style="display: flex; align-items: flex-start; gap: 10px;">
+<div style="width: 40px; flex: none; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; color: #E4622A; line-height: 1; font-variant-numeric: tabular-nums;">{{ t.numPintado }}</div>
+<div style="flex: 1; min-width: 0;">
+<div style="{{ t.descStyle }}">{{ t.desc }}</div>
+<div style="{{ t.codStyle }}">{{ t.codigo }}</div>
+<sc-if value="{{ t.pendente }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A4B0B; margin-top: 3px;">{{ t.pendLabel }}</div>
+</sc-if>
+<sc-if value="{{ t.precoInconsistente }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A4B0B; margin-top: 3px;">PREÇOS NÃO CONFEREM</div>
+</sc-if>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 9px;">
+<div style="background: #F1F4F8; border-left: 3px solid #16263F; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">PEÇAS</div>
+<div style="font-size: 14px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.pecas }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #16263F; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">METROS</div>
+<div style="font-size: 14px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.metros }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #16263F; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">KG/M</div>
+<div style="font-size: 14px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.kgm }}</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 6px;">
+<div style="background: #F1F4F8; border-left: 3px solid #E4622A; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">R$/KG</div>
+<div style="font-size: 13px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.precoKg }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #E4622A; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">R$/MT</div>
+<div style="font-size: 13px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.precoMt }}</div>
+</div>
+<div style="background: #F1F4F8; border-left: 3px solid #E4622A; padding: 6px 8px;">
+<div style="font-size: 8px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">R$/UN</div>
+<div style="font-size: 13px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ t.precoUn }}</div>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ e.abertoDesktop }}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px solid #E4EAF1; overflow-x: auto;">
+<div style="min-width: 900px;">
+<div style="display: grid; grid-template-columns: 52px 1fr 108px 84px 66px 78px 90px 96px 96px 96px; gap: 8px; padding: 9px 16px; background: #F1F4F8; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #4A6280;">
+<div>Nº TUBO</div>
+<div>DESCRIÇÃO</div>
+<div>CÓDIGO</div>
+<div style="text-align: right;">KG/M</div>
+<div style="text-align: right;">LOTES</div>
+<div style="text-align: right;">PEÇAS</div>
+<div style="text-align: right;">METROS</div>
+<div style="text-align: right;">R$/KG</div>
+<div style="text-align: right;">R$/MT</div>
+<div style="text-align: right;">R$/UN</div>
+</div>
+<sc-for list="{{ e.itens }}" as="t" hint-placeholder-count="3">
+<div style="{{ t.rowStyle }}">
+<div style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; color: #E4622A; line-height: 1; font-variant-numeric: tabular-nums;">{{ t.numPintado }}</div>
+<div>
+<div style="{{ t.descStyle }}">{{ t.desc }}</div>
+<sc-if value="{{ t.pendente }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A4B0B; margin-top: 3px;">{{ t.pendLabel }}</div>
+</sc-if>
+<sc-if value="{{ t.precoInconsistente }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A4B0B; margin-top: 3px;">PREÇOS NÃO CONFEREM</div>
+</sc-if>
+</div>
+<div style="{{ t.codStyle }}">{{ t.codigo }}</div>
+<div style="font-size: 13px; font-weight: 600; color: #4A6280; text-align: right; font-variant-numeric: tabular-nums;">{{ t.kgm }}</div>
+<div style="font-size: 13px; font-weight: 700; color: #4A6280; text-align: right; font-variant-numeric: tabular-nums;">{{ t.lotes }}</div>
+<div style="font-size: 14px; font-weight: 800; color: #16263F; text-align: right; font-variant-numeric: tabular-nums;">{{ t.pecas }}</div>
+<div style="font-size: 14px; font-weight: 700; color: #16263F; text-align: right; font-variant-numeric: tabular-nums;">{{ t.metros }}</div>
+<div style="{{ t.precoStyle }}">{{ t.precoKg }}</div>
+<div style="{{ t.precoStyle }}">{{ t.precoMt }}</div>
+<div style="{{ t.precoStyle }}">{{ t.precoUn }}</div>
+</div>
+</sc-for>
+<div style="display: flex; justify-content: flex-end; gap: 16px; padding: 10px 16px; background: #F7F9FB;">
+<span style="font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: #7E93AE;">QUILOS DO ESTALEIRO</span>
+<span style="font-size: 14px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ e.quilos }}</span>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+<sc-if value="{{ painelSemResultado }}" hint-placeholder-val="{{ false }}">
+<div style="text-align: center; padding: 40px 20px; background: #FFFFFF; border-radius: 12px;">
+<div style="font-size: 16px; font-weight: 800; color: #16263F;">Nada encontrado</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 6px;">Ajuste a busca ou desmarque o filtro de pendências.</div>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ painelTemVazios }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 18px; background: #FFFFFF; border-radius: 12px; padding: 15px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1);">
+<div style="font-size: 11px; font-weight: 800; letter-spacing: 0.14em; color: #7E93AE;">ESTALEIROS CADASTRADOS SEM LOTES</div>
+<div style="font-size: 14px; font-weight: 700; color: #16263F; margin-top: 7px; line-height: 1.5; font-variant-numeric: tabular-nums;">{{ painelVazios }}</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ mostrarSemPermissao }}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 24px;">
+<div style="max-width: 440px; text-align: center;">
+<div style="font-size: 20px; font-weight: 900; color: #16263F;">Sem permissão</div>
+<div style="font-size: 14px; font-weight: 500; color: #4A6280; margin-top: 10px; line-height: 1.5; text-wrap: pretty;">Esta área é restrita aos administradores. Sua conta está registrada como vendedor.</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ mostrarAdmin }}" hint-placeholder-val="{{ false }}">
+<div style="max-width: 1180px; width: 100%; margin: 0 auto; padding: 20px 24px 60px;">
+<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px;">
+<sc-for list="{{ adminAbas }}" as="a" hint-placeholder-count="6">
+<button type="button" sc-camel-on-click="{{ a.ir }}" style="{{ a.style }}">{{ a.nome }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ adminMsg }}" hint-placeholder-val="{{ false }}">
+<div style="{{ adminMsgStyle }}">{{ adminMsgTexto }}</div>
+</sc-if>
+<sc-if value="{{ abaEstoque }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">ESTALEIRO</span>
+<sc-raw-select value="{{ estoqueEstSel }}" sc-camel-on-change="{{ onEstoqueEst }}" style="display: block; margin-top: 5px; min-width: 260px; padding: 11px 12px; font-size: 15px; font-weight: 700; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 9px; outline: none; cursor: pointer;">
+<sc-for list="{{ opcoesEstoque }}" as="o" hint-placeholder-count="3">
+<option value="{{ o.valor }}">{{ o.rotulo }}</option>
+</sc-for>
+</sc-raw-select>
+</label>
+<button type="button" sc-camel-on-click="{{ novoProduto }}" style="padding: 12px 18px; font-size: 14px; font-weight: 800; color: #16263F; background: #FFFFFF; border: 1px solid #D3DCE6; border-radius: 9px; cursor: pointer;" style-hover="border-color: #E4622A;">Novo material</button>
+<sc-if value="{{ estoqueDetalhe }}" hint-placeholder-val="{{ false }}">
+<button type="button" sc-camel-on-click="{{ novoLote }}" style="padding: 12px 18px; font-size: 14px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 9px; cursor: pointer;" style-hover="background: #C9501C;">Adicionar lote</button>
+</sc-if>
+<div style="flex: 1;"></div>
+<div style="font-size: 13px; font-weight: 700; color: #6E86A2; font-variant-numeric: tabular-nums;">{{ estoqueResumo }}</div>
+</div>
+<sc-if value="{{ vaziosVisivel }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 14px; background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden; border-top: 3px solid #E4622A;">
+<div style="padding: 12px 16px; display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap;">
+<div style="font-size: 12px; font-weight: 800; letter-spacing: 0.14em; color: #16263F;">{{ vaziosTitulo }}</div>
+<div style="font-size: 12px; font-weight: 700; color: #7E93AE;">{{ vaziosResumo }}</div>
+</div>
+<div style="display: grid; grid-template-columns: 82px 56px 1fr 110px 110px 96px 140px; gap: 8px; padding: 10px 16px; background: #F1F4F8; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #4A6280;">
+<div>ESTALEIRO</div>
+<div>Nº TUBO</div>
+<div>MATERIAL</div>
+<div>CÓDIGO</div>
+<div>VAZIO DESDE</div>
+<div style="text-align: right;">PARADO</div>
+<div style="text-align: right;">AÇÃO</div>
+</div>
+<sc-for list="{{ vazios }}" as="v" hint-placeholder-count="3">
+<div style="{{ v.rowStyle }}">
+<div style="font-size: 13px; font-weight: 700; color: #4A6280; font-variant-numeric: tabular-nums;">{{ v.est }}</div>
+<div style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; color: #E4622A; line-height: 1; font-variant-numeric: tabular-nums;">{{ v.numero }}</div>
+<div style="font-size: 14px; font-weight: 700; color: #16263F; overflow: hidden; text-overflow: ellipsis;">{{ v.desc }}</div>
+<div style="font-size: 12px; font-weight: 700; color: #4A6280; letter-spacing: 0.04em;">{{ v.codigo }}</div>
+<div style="font-size: 13px; font-weight: 600; color: #4A6280; font-variant-numeric: tabular-nums;">{{ v.desde }}</div>
+<div style="{{ v.diasStyle }}">{{ v.dias }}</div>
+<div style="display: flex; justify-content: flex-end;">
+<button type="button" sc-camel-on-click="{{ v.encerrar }}" style="{{ v.btnStyle }}" style-hover="border-color: #E4622A;">{{ v.btnLabel }}</button>
+</div>
+</div>
+</sc-for>
+<div style="padding: 11px 16px; background: #FAFBFD; font-size: 12px; font-weight: 600; color: #6E86A2; line-height: 1.5;">Encerrar libera o número pintado para outro material. Só faça isso se o tubo não vai voltar.</div>
+</div>
+</sc-if>
+<sc-if value="{{ estoqueGeral }}" hint-placeholder-val="{{ true }}">
+<div>
+<sc-if value="{{ geralOk }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FFFFFF; border-radius: 14px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.12); overflow: hidden; margin-top: 14px;">
+<div style="padding: 13px 20px; background: #1D3252; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+<div style="font-size: 12px; font-weight: 800; letter-spacing: 0.16em; color: #FFFFFF;">TOTAIS GERAIS DO PÁTIO</div>
+<div style="font-size: 11px; font-weight: 700; color: #8FA3BC;">{{ geralSubtitulo }}</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+<sc-for list="{{ geralMetricas }}" as="m" hint-placeholder-count="6">
+<div style="{{ m.boxStyle }}">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #7E93AE;">{{ m.rotulo }}</div>
+<div style="{{ m.valorStyle }}">{{ m.valor }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<label style="display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 13px; font-weight: 700; color: #4A6280; cursor: pointer; user-select: none;">
+<input type="checkbox" checked="{{ geralSoPendentes }}" sc-camel-on-change="{{ onGeralSoPendentes }}" style="width: 17px; height: 17px; accent-color: #E4622A; cursor: pointer;">
+Só estaleiros com pendência
+</label>
+</sc-if>
+<sc-if value="{{ geralCarregando }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+<div style="height: 72px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite;"></div>
+<div style="height: 72px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite 0.12s;"></div>
+<div style="height: 72px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite 0.24s;"></div>
+</div>
+</sc-if>
+<sc-if value="{{ geralOk }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+<sc-for list="{{ geralCards }}" as="g" hint-placeholder-count="6">
+<div sc-camel-on-click="{{ g.abrir }}" style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); display: flex; align-items: center; gap: 14px; padding: 12px 16px; cursor: pointer; border: 1px solid #FFFFFF;" style-hover="border-color: #E4622A;">
+<div style="width: 50px; height: 50px; flex: none; background: #16263F; color: #FFFFFF; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ g.numero }}</div>
+<div style="flex: 1; min-width: 0;">
+<div style="font-size: 15px; font-weight: 800; color: #16263F;">{{ g.titulo }}</div>
+<div style="font-size: 12px; font-weight: 600; color: #7E93AE; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ g.resumo }}</div>
+</div>
+<div style="display: flex; align-items: center; gap: 20px; flex: none;">
+<div style="text-align: right; min-width: 70px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: #7E93AE;">PEÇAS</div>
+<div style="font-size: 17px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ g.pecas }}</div>
+</div>
+<div style="text-align: right; min-width: 86px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: #7E93AE;">METROS</div>
+<div style="font-size: 17px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ g.metros }}</div>
+</div>
+<div style="text-align: right; min-width: 96px;">
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: #7E93AE;">QUILOS</div>
+<div style="font-size: 17px; font-weight: 800; color: #16263F; font-variant-numeric: tabular-nums;">{{ g.quilos }}</div>
+</div>
+<sc-if value="{{ g.temPendencia }}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A4B0B; background: #FCEFD9; border-radius: 5px; padding: 5px 9px; flex: none; white-space: nowrap;">{{ g.pendLabel }}</span>
+</sc-if>
+<span style="font-size: 12px; font-weight: 800; color: #E4622A; white-space: nowrap;">Gerenciar ›</span>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ estoqueCarregando }}" hint-placeholder-val="{{ false }}">
+<div style="height: 180px; margin-top: 14px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite;"></div>
+</sc-if>
+<sc-if value="{{ estoqueOk }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 14px; background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden;">
+<div style="display: grid; grid-template-columns: 56px 1fr 110px 96px 72px 104px 110px 150px; gap: 8px; padding: 10px 16px; background: #F1F4F8; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #4A6280;">
+<div>Nº TUBO</div>
+<div>MATERIAL</div>
+<div>CÓDIGO</div>
+<div style="text-align: right;">TAMANHO</div>
+<div style="text-align: right;">QTD</div>
+<div style="text-align: right;">KG/PEÇA</div>
+<div style="text-align: right;">KG TOTAL</div>
+<div style="text-align: right;">AÇÕES</div>
+</div>
+<sc-for list="{{ estoqueLotes }}" as="l" hint-placeholder-count="4">
+<div style="{{ l.rowStyle }}">
+<div style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; color: #E4622A; line-height: 1; font-variant-numeric: tabular-nums;">{{ l.numPintado }}</div>
+<div>
+<div style="{{ l.descStyle }}">{{ l.desc }}</div>
+<sc-if value="{{ l.temObs }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 11px; font-weight: 600; color: #7E93AE; margin-top: 3px;">{{ l.obs }}</div>
+</sc-if>
+</div>
+<div style="{{ l.codStyle }}">{{ l.codigo }}</div>
+<div style="font-size: 14px; font-weight: 700; color: #16263F; text-align: right; font-variant-numeric: tabular-nums;">{{ l.tamanho }}</div>
+<div style="font-size: 14px; font-weight: 800; color: #16263F; text-align: right; font-variant-numeric: tabular-nums;">{{ l.qtd }}</div>
+<div style="font-size: 13px; font-weight: 600; color: #4A6280; text-align: right; font-variant-numeric: tabular-nums;">{{ l.kgPeca }}</div>
+<div style="font-size: 14px; font-weight: 800; color: #16263F; text-align: right; font-variant-numeric: tabular-nums;">{{ l.kgTotal }}</div>
+<div style="display: flex; gap: 6px; justify-content: flex-end;">
+<button type="button" sc-camel-on-click="{{ l.editar }}" style="padding: 6px 11px; font-size: 12px; font-weight: 700; color: #16263F; background: #F1F4F8; border: 1px solid #D3DCE6; border-radius: 7px; cursor: pointer;" style-hover="border-color: #E4622A;">Editar</button>
+<button type="button" sc-camel-on-click="{{ l.excluir }}" style="padding: 6px 11px; font-size: 12px; font-weight: 700; color: #8E2416; background: #FDECEA; border: 1px solid #F2CFC9; border-radius: 7px; cursor: pointer;" style-hover="background: #F8DAD5;">Excluir</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ estoqueVazio }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 34px 20px; text-align: center;">
+<div style="font-size: 15px; font-weight: 800; color: #16263F;">Nenhum lote neste estaleiro</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 6px;">Use “Adicionar lote” para registrar o primeiro material.</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ abaMateriais }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 15px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px;">
+<div style="font-size: 13px; font-weight: 800; color: #16263F;">{{ matResumo }}</div>
+<input type="search" value="{{ matBusca }}" sc-camel-on-input="{{ onMatBusca }}" placeholder="Buscar código ou descrição…" style="flex: 1; min-width: 220px; padding: 11px 13px; font-size: 15px; font-weight: 600; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 9px; outline: none;" style-focus="border-color: #E4622A; background: #FFFFFF;">
+<button type="button" sc-camel-on-click="{{ novoProduto }}" style="padding: 12px 18px; font-size: 14px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 9px; cursor: pointer;" style-hover="background: #C9501C;">Cadastrar material</button>
+</div>
+<div style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow-x: auto;">
+<div style="min-width: 1000px;">
+<div style="display: grid; grid-template-columns: 110px 1fr 80px 96px 96px 96px 92px 226px; gap: 8px; padding: 10px 16px; background: #F1F4F8; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #4A6280;">
+<div>CÓDIGO</div>
+<div>DESCRIÇÃO</div>
+<div style="text-align: right;">KG/M</div>
+<div style="text-align: right;">R$/KG</div>
+<div style="text-align: right;">R$/MT</div>
+<div style="text-align: right;">R$/UN</div>
+<div>SITUAÇÃO</div>
+<div style="text-align: right;">AÇÕES</div>
+</div>
+<sc-for list="{{ matLinhas }}" as="m" hint-placeholder-count="6">
+<div style="{{ m.rowStyle }}">
+<div style="{{ m.codStyle }}">{{ m.codigo }}</div>
+<div>
+<div style="{{ m.descStyle }}">{{ m.desc }}</div>
+<div style="font-size: 11px; font-weight: 600; color: #7E93AE; margin-top: 3px;">{{ m.usoLabel }}</div>
+</div>
+<div style="font-size: 13px; font-weight: 600; color: #4A6280; text-align: right; font-variant-numeric: tabular-nums;">{{ m.kgm }}</div>
+<div style="{{ m.precoStyle }}">{{ m.pKg }}</div>
+<div style="{{ m.precoStyle }}">{{ m.pMt }}</div>
+<div style="{{ m.precoStyle }}">{{ m.pUn }}</div>
+<div><span style="{{ m.ativoStyle }}">{{ m.ativoLabel }}</span></div>
+<div style="display: flex; gap: 6px; justify-content: flex-end;">
+<button type="button" sc-camel-on-click="{{ m.editar }}" style="padding: 6px 11px; font-size: 12px; font-weight: 700; color: #16263F; background: #F1F4F8; border: 1px solid #D3DCE6; border-radius: 7px; cursor: pointer;" style-hover="border-color: #E4622A;">Editar</button>
+<button type="button" sc-camel-on-click="{{ m.alternarAtivo }}" style="{{ m.btnAtivoStyle }}">{{ m.btnAtivoLabel }}</button>
+<button type="button" sc-camel-on-click="{{ m.excluir }}" style="padding: 6px 11px; font-size: 12px; font-weight: 700; color: #8E2416; background: #FDECEA; border: 1px solid #F2CFC9; border-radius: 7px; cursor: pointer;" style-hover="background: #F8DAD5;">Excluir</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ matVazio }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 34px 20px; text-align: center;">
+<div style="font-size: 15px; font-weight: 800; color: #16263F;">Nenhum material encontrado</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 6px;">Ajuste a busca ou cadastre um novo material.</div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ abaPrecos }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 15px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px;">
+<div style="font-size: 13px; font-weight: 800; color: #16263F;">{{ precosPendentes }}</div>
+<input type="search" value="{{ precosBusca }}" sc-camel-on-input="{{ onPrecosBusca }}" placeholder="Buscar material…" style="flex: 1; min-width: 220px; padding: 11px 13px; font-size: 15px; font-weight: 600; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 9px; outline: none;" style-focus="border-color: #E4622A; background: #FFFFFF;">
+<label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #4A6280; cursor: pointer; user-select: none;">
+<input type="checkbox" checked="{{ precosSoVazios }}" sc-camel-on-change="{{ onPrecosSoVazios }}" style="width: 17px; height: 17px; accent-color: #E4622A; cursor: pointer;">
+Só sem preço
+</label>
+</div>
+<div style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden;">
+<div style="display: grid; grid-template-columns: 108px 1fr 84px 130px 130px 130px 110px; gap: 8px; padding: 10px 16px; background: #F1F4F8; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #4A6280;">
+<div>CÓDIGO</div>
+<div>DESCRIÇÃO</div>
+<div style="text-align: right;">KG/M</div>
+<div style="text-align: right;">R$/KG</div>
+<div style="text-align: right;">R$/MT</div>
+<div style="text-align: right;">R$/UN</div>
+<div style="text-align: right;">DATA</div>
+</div>
+<sc-for list="{{ precosLinhas }}" as="p" hint-placeholder-count="5">
+<div style="{{ p.rowStyle }}">
+<div style="{{ p.codStyle }}">{{ p.codigo }}</div>
+<div>
+<div style="{{ p.descStyle }}">{{ p.desc }}</div>
+<sc-if value="{{ p.incoerente }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #8A4B0B; margin-top: 3px;">PREÇOS NÃO CONFEREM</div>
+</sc-if>
+</div>
+<div style="font-size: 13px; font-weight: 600; color: #4A6280; text-align: right; font-variant-numeric: tabular-nums;">{{ p.kgm }}</div>
+<div><input type="text" value="{{ p.vKg }}" sc-camel-on-input="{{ p.onKg }}" sc-camel-on-blur="{{ p.salvar }}" placeholder="—" style="{{ p.inputStyle }}"></div>
+<div><input type="text" value="{{ p.vMt }}" sc-camel-on-input="{{ p.onMt }}" sc-camel-on-blur="{{ p.salvar }}" placeholder="—" style="{{ p.inputStyle }}"></div>
+<div><input type="text" value="{{ p.vUn }}" sc-camel-on-input="{{ p.onUn }}" sc-camel-on-blur="{{ p.salvar }}" placeholder="—" style="{{ p.inputStyle }}"></div>
+<div style="{{ p.dataStyle }}">{{ p.dataLabel }}</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #6E86A2; margin-top: 10px; line-height: 1.45;">Digite o valor e saia do campo para gravar. Deixe vazio para manter sem preço — nunca use zero.</div>
+</div>
+</sc-if>
+<sc-if value="{{ abaPendencias }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 15px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); margin-bottom: 14px; font-size: 13px; font-weight: 800; color: #16263F;">{{ pendResumo }}</div>
+<div style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden;">
+<div style="display: grid; grid-template-columns: 130px 1fr 130px 200px; gap: 10px; padding: 10px 16px; background: #F1F4F8; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #4A6280;">
+<div>CÓDIGO</div>
+<div>DESCRIÇÃO</div>
+<div style="text-align: right;">KG/M</div>
+<div>FALTA</div>
+</div>
+<sc-for list="{{ pendLinhas }}" as="p" hint-placeholder-count="4">
+<div style="{{ p.rowStyle }}">
+<div><input type="text" value="{{ p.vCod }}" sc-camel-on-input="{{ p.onCod }}" sc-camel-on-blur="{{ p.salvar }}" placeholder="SEM CÓDIGO" style="{{ p.inputStyle }}"></div>
+<div><input type="text" value="{{ p.vDesc }}" sc-camel-on-input="{{ p.onDesc }}" sc-camel-on-blur="{{ p.salvar }}" placeholder="Descrever material…" style="{{ p.inputStyle }}"></div>
+<div><input type="text" value="{{ p.vKgm }}" sc-camel-on-input="{{ p.onKgm }}" sc-camel-on-blur="{{ p.salvar }}" placeholder="—" style="{{ p.inputNumStyle }}"></div>
+<div style="font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: #8A4B0B;">{{ p.falta }}</div>
+</div>
+</sc-for>
+<sc-if value="{{ pendVazio }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 34px 20px; text-align: center;">
+<div style="font-size: 15px; font-weight: 800; color: #1E7A46;">Nenhuma pendência</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 6px;">Todos os materiais têm código, descrição e peso.</div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ abaRelatorios }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 15px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; margin-bottom: 14px;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">DE</span>
+<input type="date" value="{{ relDe }}" sc-camel-on-input="{{ onRelDe }}" style="display: block; margin-top: 5px; padding: 10px 12px; font-size: 14px; font-weight: 700; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 9px; outline: none;">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">ATÉ</span>
+<input type="date" value="{{ relAte }}" sc-camel-on-input="{{ onRelAte }}" style="display: block; margin-top: 5px; padding: 10px 12px; font-size: 14px; font-weight: 700; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 9px; outline: none;">
+</label>
+<button type="button" sc-camel-on-click="{{ aplicarPeriodo }}" style="padding: 12px 18px; font-size: 14px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 9px; cursor: pointer;">Aplicar</button>
+<button type="button" sc-camel-on-click="{{ limparPeriodo }}" style="padding: 12px 16px; font-size: 14px; font-weight: 700; color: #4A6280; background: #F1F4F8; border: 1px solid #D3DCE6; border-radius: 9px; cursor: pointer;">Todo o período</button>
+<div style="flex: 1;"></div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap;">
+<sc-for list="{{ relAbas }}" as="r" hint-placeholder-count="4">
+<button type="button" sc-camel-on-click="{{ r.ir }}" style="{{ r.style }}">{{ r.nome }}</button>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ relMovimentosVisivel }}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 14px;">
+<sc-for list="{{ relTotais }}" as="m" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1);">
+<div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #7E93AE;">{{ m.rotulo }}</div>
+<div style="{{ m.valorStyle }}">{{ m.valor }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ relCarregando }}" hint-placeholder-val="{{ true }}">
+<div style="height: 200px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite;"></div>
+</sc-if>
+<sc-if value="{{ relOk }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden;">
+<div style="{{ relHeadStyle }}">
+<sc-for list="{{ relColunas }}" as="c" hint-placeholder-count="5">
+<div style="{{ c.style }}">{{ c.nome }}</div>
+</sc-for>
+</div>
+<sc-for list="{{ relLinhas }}" as="r" hint-placeholder-count="5">
+<div style="{{ r.rowStyle }}">
+<sc-for list="{{ r.celulas }}" as="c" hint-placeholder-count="5">
+<div style="{{ c.style }}">{{ c.texto }}</div>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{ relVazio }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 34px 20px; text-align: center;">
+<div style="font-size: 15px; font-weight: 800; color: #16263F;">Nada no período</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 6px;">Amplie as datas ou escolha “Todo o período”.</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ abaContas }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); margin-bottom: 14px;">
+<div style="font-size: 13px; font-weight: 800; color: #16263F;">Nova conta</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 12px;">
+<input type="text" value="{{ novoNome }}" sc-camel-on-input="{{ onNovoNome }}" placeholder="Nome" style="{{ contaInputStyle }}">
+<input type="email" value="{{ novoEmail }}" sc-camel-on-input="{{ onNovoEmail }}" placeholder="E-mail" style="{{ contaInputStyle }}">
+<input type="password" value="{{ novaSenha }}" sc-camel-on-input="{{ onNovaSenha }}" placeholder="Senha (mín. 8)" style="{{ contaInputStyle }}">
+<sc-raw-select value="{{ novoPapel }}" sc-camel-on-change="{{ onNovoPapel }}" style="{{ contaInputStyle }}">
+<option value="vendedor">Vendedor</option>
+<option value="admin">Administrador</option>
+</sc-raw-select>
+<button type="button" sc-camel-on-click="{{ criarConta }}" style="padding: 12px 18px; font-size: 14px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; border-radius: 9px; cursor: pointer;">Criar conta</button>
+</div>
+</div>
+<sc-if value="{{ contasCarregando }}" hint-placeholder-val="{{ true }}">
+<div style="height: 180px; border-radius: 12px; background: #E4EAF1; animation: skel 1.1s ease-in-out infinite;"></div>
+</sc-if>
+<sc-if value="{{ contasOk }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden;">
+<div style="display: grid; grid-template-columns: 1fr 1fr 130px 110px 220px; gap: 10px; padding: 10px 16px; background: #F1F4F8; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #4A6280;">
+<div>NOME</div>
+<div>E-MAIL</div>
+<div>PAPEL</div>
+<div>SITUAÇÃO</div>
+<div style="text-align: right;">AÇÕES</div>
+</div>
+<sc-for list="{{ contas }}" as="c" hint-placeholder-count="3">
+<div style="{{ c.rowStyle }}">
+<div style="font-size: 14px; font-weight: 700; color: #16263F;">{{ c.nome }}</div>
+<div style="font-size: 13px; font-weight: 600; color: #4A6280; overflow: hidden; text-overflow: ellipsis;">{{ c.email }}</div>
+<div><span style="{{ c.papelStyle }}">{{ c.papelLabel }}</span></div>
+<div><span style="{{ c.ativoStyle }}">{{ c.ativoLabel }}</span></div>
+<div style="display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap;">
+<button type="button" sc-camel-on-click="{{ c.alternarPapel }}" disabled="{{ c.ehVoce }}" style="{{ c.btnPapelStyle }}">{{ c.btnPapelLabel }}</button>
+<button type="button" sc-camel-on-click="{{ c.alternarAtivo }}" disabled="{{ c.ehVoce }}" style="{{ c.btnAtivoStyle }}">{{ c.btnAtivoLabel }}</button>
+<button type="button" sc-camel-on-click="{{ c.trocarSenha }}" style="padding: 6px 10px; font-size: 12px; font-weight: 700; color: #16263F; background: #F1F4F8; border: 1px solid #D3DCE6; border-radius: 7px; cursor: pointer;">Nova senha</button>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ contasErro }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FDECEA; border-left: 3px solid #C4321F; padding: 13px 15px; border-radius: 8px; margin-top: 14px; font-size: 13px; font-weight: 700; color: #8E2416; line-height: 1.45;">{{ contasErroTexto }}</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ abaQR }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; margin-bottom: 16px;">
+<label style="flex: 1; min-width: 280px; display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">URL BASE DAS PLACAS</span>
+<input type="text" value="{{ urlBase }}" sc-camel-on-input="{{ onUrlBase }}" style="display: block; width: 100%; margin-top: 5px; padding: 11px 13px; font-size: 15px; font-weight: 600; color: #16263F; background: #F6F8FB; border: 2px solid #D3DCE6; border-radius: 9px; outline: none;" style-focus="border-color: #E4622A; background: #FFFFFF;">
+</label>
+<button type="button" sc-camel-on-click="{{ imprimirTodas }}" style="padding: 12px 18px; font-size: 14px; font-weight: 800; color: #FFFFFF; background: #16263F; border: none; border-radius: 9px; cursor: pointer;" style-hover="background: #0C1729;">Imprimir todas as placas</button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;">
+<sc-for list="{{ qrCards }}" as="c" hint-placeholder-count="6">
+<div style="background: #FFFFFF; border-radius: 12px; box-shadow: 0 1px 3px rgba(12, 23, 41, 0.1); overflow: hidden; display: flex; flex-direction: column;">
+<div style="background: #16263F; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+<div>
+<div style="font-size: 9px; font-weight: 800; letter-spacing: 0.18em; color: #E4622A;">ESTALEIRO</div>
+<div style="font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 700; line-height: 0.9; color: #FFFFFF; font-variant-numeric: tabular-nums;">{{ c.numero }}</div>
+</div>
+<div style="font-size: 11px; font-weight: 700; color: #8FA3BC; text-align: right;">{{ c.qtdLabel }}</div>
+</div>
+<div style="padding: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+<div ref="{{ c.qrRef }}" style="width: 140px; height: 140px; border: 3px solid #16263F; padding: 6px; background: #FFFFFF;"></div>
+<div style="font-size: 11px; font-weight: 600; color: #4A6280; text-align: center; word-break: break-all; line-height: 1.35;">{{ c.url }}</div>
+</div>
+<div style="margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #E4EAF1;">
+<button type="button" sc-camel-on-click="{{ c.copiar }}" style="padding: 10px 6px; font-size: 12px; font-weight: 700; color: #16263F; background: #F7F9FB; border: none; cursor: pointer;" style-hover="background: #EEF2F7;">{{ c.copiarLabel }}</button>
+<button type="button" sc-camel-on-click="{{ c.previa }}" style="padding: 10px 6px; font-size: 12px; font-weight: 700; color: #16263F; background: #F7F9FB; border: none; cursor: pointer;" style-hover="background: #EEF2F7;">Prévia</button>
+<button type="button" sc-camel-on-click="{{ c.imprimir }}" style="padding: 10px 6px; font-size: 12px; font-weight: 800; color: #FFFFFF; background: #E4622A; border: none; cursor: pointer;" style-hover="background: #C9501C;">Placa</button>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ produtoAberto }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; background: rgba(12, 23, 41, 0.6); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 105;">
+<div style="width: 100%; max-width: 520px; background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(12, 23, 41, 0.4);">
+<div style="padding: 16px 20px; background: #16263F; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+<div style="font-size: 15px; font-weight: 800; color: #FFFFFF;">{{ prodTitulo }}</div>
+<button type="button" sc-camel-on-click="{{ fecharProduto }}" style="padding: 5px 11px; font-size: 12px; font-weight: 700; color: #8FA3BC; background: transparent; border: 1px solid #24384F; border-radius: 6px; cursor: pointer;">Fechar</button>
+</div>
+<div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: grid; grid-template-columns: 150px 1fr; gap: 10px;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">CÓDIGO</span>
+<input type="text" value="{{ prodCodigo }}" sc-camel-on-input="{{ onProdCodigo }}" placeholder="TUB123" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">DESCRIÇÃO</span>
+<input type="text" value="{{ prodDesc }}" sc-camel-on-input="{{ onProdDesc }}" placeholder='Tubo redondo 2" x 2,00 mm' style="{{ loteInputStyle }}">
+</label>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">KG / METRO</span>
+<input type="text" value="{{ prodKgm }}" sc-camel-on-input="{{ onProdKgm }}" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">R$ / KG</span>
+<input type="text" value="{{ prodPKg }}" sc-camel-on-input="{{ onProdPKg }}" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">R$ / MT</span>
+<input type="text" value="{{ prodPMt }}" sc-camel-on-input="{{ onProdPMt }}" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">R$ / UN</span>
+<input type="text" value="{{ prodPUn }}" sc-camel-on-input="{{ onProdPUn }}" style="{{ loteInputStyle }}">
+</label>
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #6E86A2; line-height: 1.45;">Preço é opcional agora — deixe vazio e resolva na aba Preços. Nunca grave zero.</div>
+<sc-if value="{{ prodMostrarDescarga }}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px solid #E4EAF1; padding-top: 14px;">
+<label style="display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 800; color: #16263F; cursor: pointer; user-select: none;">
+<input type="checkbox" checked="{{ prodDescarregar }}" sc-camel-on-change="{{ onProdDescarregar }}" style="width: 17px; height: 17px; accent-color: #E4622A; cursor: pointer;">
+Já descarregar num estaleiro agora
+</label>
+<sc-if value="{{ prodDescarregar }}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: 1fr 90px 100px 100px; gap: 10px; margin-top: 12px;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">ESTALEIRO</span>
+<sc-raw-select value="{{ prodEst }}" sc-camel-on-change="{{ onProdEst }}" style="{{ loteSelectStyle }}">
+<sc-for list="{{ prodEstOpcoes }}" as="o" hint-placeholder-count="4">
+<option value="{{ o.valor }}">{{ o.rotulo }}</option>
+</sc-for>
+</sc-raw-select>
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">QTD</span>
+<input type="text" value="{{ prodQtd }}" sc-camel-on-input="{{ onProdQtd }}" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">TAM. (M)</span>
+<input type="text" value="{{ prodTam }}" sc-camel-on-input="{{ onProdTam }}" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">KG/PEÇA</span>
+<input type="text" value="{{ prodPeso }}" sc-camel-on-input="{{ onProdPeso }}" style="{{ loteInputStyle }}">
+</label>
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #6E86A2; margin-top: 8px; line-height: 1.45;">O número pintado no tubo é gerado como o próximo livre daquele estaleiro.</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ prodErro }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FDECEA; border-left: 3px solid #C4321F; padding: 11px 13px; font-size: 13px; font-weight: 700; color: #8E2416; line-height: 1.4;">{{ prodErroTexto }}</div>
+</sc-if>
+<button type="button" sc-camel-on-click="{{ salvarProdutoNovo }}" disabled="{{ prodSalvando }}" style="{{ prodSalvarStyle }}">{{ prodSalvarLabel }}</button>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ loteAberto }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; background: rgba(12, 23, 41, 0.6); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 100;">
+<div style="width: 100%; max-width: 480px; background: #FFFFFF; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(12, 23, 41, 0.4);">
+<div style="padding: 16px 20px; background: #16263F; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+<div style="font-size: 15px; font-weight: 800; color: #FFFFFF;">{{ loteTitulo }}</div>
+<button type="button" sc-camel-on-click="{{ fecharLote }}" style="padding: 5px 11px; font-size: 12px; font-weight: 700; color: #8FA3BC; background: transparent; border: 1px solid #24384F; border-radius: 6px; cursor: pointer;">Fechar</button>
+</div>
+<div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">MATERIAL</span>
+<sc-raw-select value="{{ loteProduto }}" sc-camel-on-change="{{ onLoteProduto }}" style="{{ loteSelectStyle }}">
+<sc-for list="{{ loteProdutos }}" as="p" hint-placeholder-count="4">
+<option value="{{ p.valor }}">{{ p.rotulo }}</option>
+</sc-for>
+</sc-raw-select>
+</label>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">QUANTIDADE</span>
+<input type="text" value="{{ loteQtd }}" sc-camel-on-input="{{ onLoteQtd }}" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">TAMANHO (M)</span>
+<input type="text" value="{{ loteTam }}" sc-camel-on-input="{{ onLoteTam }}" style="{{ loteInputStyle }}">
+</label>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">KG / PEÇA</span>
+<input type="text" value="{{ lotePeso }}" sc-camel-on-input="{{ onLotePeso }}" style="{{ loteInputStyle }}">
+</label>
+</div>
+<label style="display: block;">
+<span style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: #6E86A2;">OBSERVAÇÃO</span>
+<input type="text" value="{{ loteObs }}" sc-camel-on-input="{{ onLoteObs }}" placeholder="opcional" style="{{ loteInputStyle }}">
+</label>
+<sc-if value="{{ loteErro }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FDECEA; border-left: 3px solid #C4321F; padding: 11px 13px; font-size: 13px; font-weight: 700; color: #8E2416; line-height: 1.4;">{{ loteErroTexto }}</div>
+</sc-if>
+<button type="button" sc-camel-on-click="{{ salvarLote }}" disabled="{{ loteSalvando }}" style="{{ loteSalvarStyle }}">{{ loteSalvarLabel }}</button>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ confirmAberto }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; background: rgba(12, 23, 41, 0.6); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 110;">
+<div style="width: 100%; max-width: 400px; background: #FFFFFF; border-radius: 14px; padding: 22px; box-shadow: 0 20px 60px rgba(12, 23, 41, 0.4);">
+<div style="font-size: 17px; font-weight: 900; color: #16263F;">{{ confirmTitulo }}</div>
+<div style="font-size: 13px; font-weight: 500; color: #4A6280; margin-top: 8px; line-height: 1.45; text-wrap: pretty;">{{ confirmTexto }}</div>
+<div style="display: flex; gap: 10px; margin-top: 18px;">
+<button type="button" sc-camel-on-click="{{ cancelarExcluir }}" style="flex: 1; padding: 12px; font-size: 14px; font-weight: 700; color: #4A6280; background: #F1F4F8; border: 1px solid #D3DCE6; border-radius: 9px; cursor: pointer;">Cancelar</button>
+<button type="button" sc-camel-on-click="{{ confirmarExcluir }}" style="flex: 1; padding: 12px; font-size: 14px; font-weight: 800; color: #FFFFFF; background: #C4321F; border: none; border-radius: 9px; cursor: pointer;">Excluir</button>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+
+<!-- Carregamento das Configurações, Utilitários e Aplicação -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
