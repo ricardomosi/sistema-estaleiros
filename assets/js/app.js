@@ -522,6 +522,10 @@ class Component extends DCLogic {
   }
 
   imprimirPlacas(numeros) {
+    if (!numeros || !numeros.length) {
+      this.aviso('Nenhum estaleiro selecionado para impressão.', 'erro');
+      return;
+    }
     const ests = this.cache.estaleiros || [];
     const logo = (window.__resources && window.__resources.logoJP) || '';
     const hoje = new Date().toLocaleDateString('pt-BR');
@@ -566,21 +570,104 @@ class Component extends DCLogic {
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/archivo@5/900.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/barlow-condensed@5/700.css" rel="stylesheet" />
 <style>
-@page { size: A4; margin: 0; }
-html, body { margin: 0; padding: 0; background: #55606E; }
-section { width: 210mm; height: 297mm; margin: 0 auto 8mm; background: #FFFFFF;
-font-family: Archivo, sans-serif; display: flex; flex-direction: column; overflow: hidden; }
+@page { size: A4 portrait; margin: 0; }
+* { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+html, body { margin: 0; padding: 0; background: #FFFFFF; }
+section { width: 210mm; height: 297mm; max-width: 210mm; max-height: 297mm; margin: 0 auto; background: #FFFFFF;
+font-family: Archivo, sans-serif; display: flex; flex-direction: column; overflow: hidden; box-sizing: border-box; page-break-after: always; break-after: page; }
+section:last-child { page-break-after: auto; break-after: auto; }
 section svg { width: 100%; height: 100%; display: block; }
-@media print { body { background: #FFFFFF; } section { margin: 0; break-after: page; } }
+@media screen {
+  body { background: #55606E; padding: 20px 0; }
+  section { box-shadow: 0 4px 20px rgba(0,0,0,0.3); margin-bottom: 20px; }
+}
+@media print {
+  body { background: #FFFFFF !important; padding: 0 !important; }
+  section { margin: 0 !important; box-shadow: none !important; }
+}
 </style></head><body>
 ${paginas}
-<script>window.addEventListener('load', function () { setTimeout(function () { window.print(); }, 400); });</script>
 </body></html>`;
 
-    const w = window.open('', '_blank');
-    if (!w) { this.aviso('O navegador bloqueou a janela de impressão. Libere pop-ups para este site.', 'erro'); return; }
-    w.document.write(doc);
-    w.document.close();
+    this.executarImpressao(doc);
+  }
+
+  executarImpressao(doc) {
+    this.aviso('Gerando visualização para impressão / PDF…', 'ok');
+
+    try {
+      let iframe = document.getElementById('iframe-impressao-estaleiros');
+      if (iframe) {
+        try { iframe.remove(); } catch (e) {}
+      }
+
+      iframe = document.createElement('iframe');
+      iframe.id = 'iframe-impressao-estaleiros';
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      iframe.style.opacity = '0';
+      iframe.style.pointerEvents = 'none';
+      document.body.appendChild(iframe);
+
+      const blob = new Blob([doc], { type: 'text/html;charset=utf-8' });
+      const blobUrl = URL.createObjectURL(blob);
+
+      let executado = false;
+      const disparar = () => {
+        if (executado) return;
+        executado = true;
+        try {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+          }
+        } catch (errIframe) {
+          console.warn('Impressão por iframe restrita pelo navegador, abrindo fallback:', errIframe);
+          this.abrirEmNovaAbaBlob(blobUrl);
+        }
+      };
+
+      iframe.onload = () => {
+        setTimeout(disparar, 400);
+      };
+
+      iframe.src = blobUrl;
+
+      setTimeout(() => {
+        if (!executado) disparar();
+      }, 1000);
+
+      return;
+    } catch (err) {
+      console.warn('Erro ao inicializar impressão por iframe:', err);
+    }
+
+    const blob = new Blob([doc], { type: 'text/html;charset=utf-8' });
+    const blobUrl = URL.createObjectURL(blob);
+    this.abrirEmNovaAbaBlob(blobUrl);
+  }
+
+  abrirEmNovaAbaBlob(blobUrl) {
+    try {
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        try { a.remove(); } catch (e) {}
+      }, 500);
+    } catch (err) {
+      const w = window.open(blobUrl, '_blank');
+      if (!w) {
+        this.aviso('A janela foi bloqueada pelo navegador. Permita pop-ups ou tente novamente.', 'erro');
+      }
+    }
   }
 
   checarPreco(pKg, pMt, kgm) {
